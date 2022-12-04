@@ -28,9 +28,9 @@ PrintHexByte:
 	jmp	PrintHexBtye2	/* Always taken */
 PrintHexByte1:
 	sub	$0x09, %al  	/* Adjust and */
-	orb	$0x40, %al		/* form ASCII A-F */
+	orb	$0x40, %al	/* form ASCII A-F */
 PrintHexBtye2:
-	call	CharOut			/* output character */
+	call	CharOut		/* output character */
 #
 # Then print L.S. Nibble
 #
@@ -102,7 +102,7 @@ PrintWordB10:
 	push	%rsi		/* Power of 10 counter */
 	push	%rdi		/* Holds original number */
 	push	%rbp		/* For DIV command */
-	mov	%rax, %rdi			/* Original Number */
+	mov	%rax, %rdi	/* Original Number */
 
 	/* Part 1 of 2, count base 10 digits by dividing by 10 with a counter */
 
