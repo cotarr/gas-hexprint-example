@@ -15,37 +15,37 @@
 #  Output:  none
 #--------------------------------------------------------------
 PrintHexByte:
-	push	%rax			/* preserve for exit */
-	push	%rax			/* save for second nibble */
+	push	%rax		/* preserve for exit */
+	push	%rax		/* save for second nibble */
 #
 #  First print MS nibble
 #
-	and     $0x0F0, %al		/* Get first nibble */
-	shr     $0x004, %al		/* Shift 4 bits to align nibble */
-	cmp     $0x09, %al		/* Number or A-F? */
-	jg      PrintHexByte1  	/* It's A-F branch */
-	or	    $0x30, %al			/* Form ASCII 0-9 */
-	jmp     PrintHexBtye2	/* Always taken */
+	and	$0x0F0, %al	/* Get first nibble */
+	shr	$0x004, %al	/* Shift 4 bits to align nibble */
+	cmp	$0x09, %al	/* Number or A-F? */
+	jg	PrintHexByte1  	/* It's A-F branch */
+	orb	$0x30, %al	/* Form ASCII 0-9 */
+	jmp	PrintHexBtye2	/* Always taken */
 PrintHexByte1:
-	sub     $0x09, %al  	/* Adjust and */
-	orb	    $0x40, %al		/* form ASCII A-F */
+	sub	$0x09, %al  	/* Adjust and */
+	orb	$0x40, %al		/* form ASCII A-F */
 PrintHexBtye2:
 	call	CharOut			/* output character */
 #
 # Then print L.S. Nibble
 #
-	pop	    %rax    		/* get L.S. Nibble */
-	and	    $0x0f, %al		/* Mask to first nibble */
-	cmp     $0x09, %al		/* Number or A-F? */
-	jg	PrintHexByte3		/* It's A-F branch */
-	or	    $0x30, %al		/* Else make ASCII */
-	jmp	PrintHexByte4		/* Always taken  */
+	pop	%rax    	/* get L.S. Nibble */
+	and	$0x0f, %al	/* Mask to first nibble */
+	cmp	$0x09, %al	/* Number or A-F? */
+	jg	PrintHexByte3	/* It's A-F branch */
+	or	$0x30, %al	/* Else make ASCII */
+	jmp	PrintHexByte4	/* Always taken  */
 PrintHexByte3:
-	sub	    $0x09, %al		/* Adjust and */
-	or	    $0x40, %al		/* and for ASCII */
+	sub	$0x09, %al	/* Adjust and */
+	or	$0x40, %al	/* and for ASCII */
 PrintHexByte4:
-	call	CharOut			/* Output character  */
-	pop     %rax			/* register preserved */
+	call	CharOut		/* Output character  */
+	pop	%rax		/* register preserved */
 	ret
 
 #--------------------------------------------------------------
@@ -58,29 +58,29 @@ PrintHexWord:
 	push	%rbx
 	push	%rcx
 	push	%rdx
-	mov 	$16, %rdx			/* Count to print 16 nibbles (4 bit) */
-	mov	    %rax, %rbx			/* Save original word in RBX */
+	mov 	$16, %rdx	/* Count to print 16 nibbles (4 bit) */
+	mov	   %rax, %rbx	/* Save original word in RBX */
 PrintHexWord1:
-	mov	    %rbx, %rax			/* Get un-rotated word */
-	mov	    %rdx, %rcx			/* Set rotation counter */
-	dec	    %rcx				/* Print 16 nibbles, only 15 need rotation */
-	jz	    PrintHexWord3		/* Last nibble, don't rotate */
+	mov	%rbx, %rax	/* Get un-rotated word */
+	mov	%rdx, %rcx	/* Set rotation counter */
+	dec	%rcx		/* Print 16 nibbles, only 15 need rotation */
+	jz	PrintHexWord3	/* Last nibble, don't rotate */
 PrintHexWord2:
-	shr	    $4, %rax			/* Rotate until nibble in place */
-	loop	PrintHexWord2	    /* Decrement RCX and loop until done */
+	shr	$4, %rax	/* Rotate until nibble in place */
+	loop	PrintHexWord2	/* Decrement RCX and loop until done */
 PrintHexWord3:
-	and	    $0x0F, %rax 		/* Get first nibble by ANDing other bits */
-	cmp     $0x09, %al   		/* Number or A-F? */
-    jg      PrintHexWord4 		/* It's A-F branch */
-	or      $0x30, %al			/* Form ASCII 0-9 */
-	jmp     PrintHexWord5     	/* always taken */
+	and	$0x0F, %rax	/* Get first nibble by ANDing other bits */
+	cmp	$0x09, %al	/* Number or A-F? */
+	jg	PrintHexWord4 	/* It's A-F branch */
+	or	$0x30, %al	/* Form ASCII 0-9 */
+	jmp	PrintHexWord5   /* always taken */
 PrintHexWord4:
-	sub	    $0x09, %al			/* Adjust and */
-	or	    $0x40, %al  		/* form ASCII A-F */
+	sub	$0x09, %al	/* Adjust and */
+	or	$0x40, %al  	/* form ASCII A-F */
 PrintHexWord5:
-    call	CharOut				/* Output character */
-	dec     %rdx				/* one less nibble next time */
-	jg      PrintHexWord1		/* Loop back until all 4 bit nibbles printed */
+    call	CharOut		/* Output character */
+	dec     %rdx		/* one less nibble next time */
+	jg      PrintHexWord1	/* Loop back until all 4 bit nibbles printed */
 	pop     %rdx
 	pop     %rcx
 	pop     %rbx
@@ -95,67 +95,67 @@ PrintHexWord5:
 #------------------------------------------------------------------------------------
 PrintWordB10:
 
-	push	%rax				/* For DIV command */
-	push	%rbx				/* For DIV command */
-	push	%rcx				/* Loop Counter */
-	push	%rdx				/* For DIV command */
-	push	%rsi				/* Power of 10 counter */
-	push	%rdi				/* Holds original number */
-	push	%rbp				/* For DIV command */
-	mov	    %rax, %rdi			/* Original Number */
+	push	%rax		/* For DIV command */
+	push	%rbx		/* For DIV command */
+	push	%rcx		/* Loop Counter */
+	push	%rdx		/* For DIV command */
+	push	%rsi		/* Power of 10 counter */
+	push	%rdi		/* Holds original number */
+	push	%rbp		/* For DIV command */
+	mov	%rax, %rdi			/* Original Number */
 
 	/* Part 1 of 2, count base 10 digits by dividing by 10 with a counter */
 
 	/* an unsigned 64 bit integer can be up to 20 digits in base 10 */
-	mov     $20, %rcx			/* Loop counter */
-	mov     $1, %rsi			/* Counter */
-	mov	    $1, %rbx			/* RBX Holds power of 10 */
+	mov	$20, %rcx	/* Loop counter */
+	mov	$1, %rsi	/* Counter */
+	mov	$1, %rbx	/* RBX Holds power of 10 */
 PrintWordB101:
-	xor	    %rdx, %rdx			/* RDX = 0 */
-	mov	    %rdi, %rax			/* Get number */
-	div     %rbx				/* RAX = RDX:RAX/RBX RDX = Remainder */
-	cmp     $10, %rax			/* Is result of division less than 10? */
-	jc      PrintWordB102		/* Yes, less than 10, done counting */
-	shl	    $1, %rbx    		/* X 2 */
-	mov	    %rbx, %rax			/* Save X 2 value */
-	shl	    $2, %rbx			/* X 2 X 2 --> X 8 */
-	add	    %rax, %rbx  		/* Add (_X8) + (_X2) = ( _X10) */
-	inc	    %rsi				/* Increment digit counter */
+	xor	%rdx, %rdx	/* RDX = 0 */
+	mov	%rdi, %rax	/* Get number */
+	div     %rbx		/* RAX = RDX:RAX/RBX RDX = Remainder */
+	cmp     $10, %rax	/* Is result of division less than 10? */
+	jc      PrintWordB102	/* Yes, less than 10, done counting */
+	shl	$1, %rbx	/* X 2 */
+	mov	%rbx, %rax	/* Save X 2 value */
+	shl	$2, %rbx	/* X 2 X 2 --> X 8 */
+	add	%rax, %rbx	/* Add (_X8) + (_X2) = ( _X10) */
+	inc	%rsi		/* Increment digit counter */
 	loop	PrintWordB101			;
 
 	/* Error handler, loop counter too high, something is broken */
 
-	lea	    PrintWordB10ErrStr, %rax
-    call    StrOut              /* Print error message */
-    jmp     exit_program        /* and quit program */
+	lea	PrintWordB10ErrStr, %rax
+	call	StrOut		/* Print error message */
+	jmp	exit_program	/* and quit program */
 
 PrintWordB102:
 
   	/* Part 2 of 2 - divide by power of 10 in a loop, forming ASCII digits at each loop */
 
-	mov     %rsi, %rcx 			/* Counter */
+	mov	%rsi, %rcx	/* Counter */
 PrintWordB103:
-	xor	    %rdx, %rdx			/* RDX = 0 */
-	mov	    %rdi, %rax			/* Original number, or remainder in later terms */
-	div	    %rbx				/* DIV by power of 10, RAX = RDX:RAX / RBX , Remainder = RDX */
-	mov	    %rdx, %rdi			/* Remainder for next time */
-	and	    $0x0f, %rax
-    or	    $0x030, %rax		/* Form ascii */
-	call	CharOut				/* Output character */
-	xor	    %rdx, %rdx			/* RDX = 0 */
-	mov	    %rbx, %rax			/* last power of 10 */
-	mov	    $10, %rbp			/* for DIV command */
-	div	    %rbp				/* Reduce 1 power of 10 RAX = RDX:rax / 10 */
-	mov	    %rax, %rbx			/* Save next power of 10 */
+	xor	%rdx, %rdx	/* RDX = 0 */
+	mov	%rdi, %rax	/* Original number, or remainder in later terms */
+	div	%rbx		/* DIV by power of 10, RAX = RDX:RAX / RBX , Remainder = RDX */
+	mov	%rdx, %rdi	/* Remainder for next time */
+	and	$0x0f, %rax
+	or	$0x030, %rax	/* Form ascii */
+	call	CharOut		/* Output character */
+	xor	%rdx, %rdx	/* RDX = 0 */
+	mov	%rbx, %rax	/* last power of 10 */
+	mov	$10, %rbp	/* for DIV command */
+	div	%rbp		/* Reduce 1 power of 10 RAX = RDX:rax / 10 */
+	mov	%rax, %rbx	/* Save next power of 10 */
 	loop	PrintWordB103
 
 PrintWordB104:
-	pop	    %rbp
-	pop 	%rdi
-	pop 	%rsi
-	pop 	%rdx
-	pop 	%rcx
-	pop 	%rbx
+	pop	%rbp
+	pop	%rdi
+	pop	%rsi
+	pop	%rdx
+	pop	%rcx
+	pop	%rbx
 	pop 	%rax
 	ret
 

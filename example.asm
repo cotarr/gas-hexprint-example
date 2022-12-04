@@ -10,63 +10,64 @@ _start:
 
 	/* Print one character */
 
-	lea		char_message, %rax
-	call	StrOut				/* Print null terminated string */
-	mov		$'M, %al			/* Character "M" */
-	call	CharOut				/* Call function to print one character */
-	call	CROut				/* Extra carriage return */
+	lea	char_message, %rax
+	call	StrOut			/* Print null terminated string */
+	mov	$'M, %al		/* Character "M" */
+	call	CharOut			/* Call function to print one character */
+	call	CROut			/* Extra carriage return */
 
 	/* Print Hello World */
 
-	lea		str_message, %rax
+	lea	str_message, %rax
 	call	StrOut
-	lea		hello_message, %rax	/* Call function to print a string */
+	lea	hello_message, %rax	/* Call function to print a string */
 	call	StrOut
 
 	/* Print one byte in hexadecimal */
 
-	lea		byte_message, %rax
+	lea	byte_message, %rax
 	call	StrOut
-	mov		$0x55, %rax
+	mov	$0x55, %rax
 	call	PrintHexByte		/* Call function to print 1 byte in hexadecimal*/
 	call	CROut
 
 	/* Print one 64 bit word in hexadecimal */
 
-	lea		word_message, %rax
+	lea	word_message, %rax
 	call	StrOut
 	/* Addressing won't take 64 bit immediate value 
 	   so the 64 bit value1 is declared as data below
 	   and it contains 0x0123456788abcdef 64 bit value */
-	mov		value1, %rax		/* rax = 0x0123456789ABCDEF */
+	mov	value1, %rax		/* rax = 0x0123456789ABCDEF */
 	call	PrintHexWord		/* Print one 64 bit word in hexadecimal*/
-	call	CROut				/* Extra carriage return */
+	call	CROut			/* Extra carriage return */
 
 	/* Print 64 bit unsigned integer as base 10 decimal number */
 
-	lea		word_b10_message, %rax
-	call	StrOut				/* Print null terminated string */
-	mov		$0xffff, %rax
+	lea	word_b10_message, %rax
+	call	StrOut			/* Print null terminated string */
+	mov	$0xffff, %rax
 	call	PrintWordB10
-	call	CROut				/* Extra carriage return */
+	call	CROut			/* Extra carriage return */
 
-	lea		word_b10_message2, %rax
+	lea	word_b10_message2, %rax
 	call	StrOut
-	mov		$'0', %rax			/* ASCII prepend 0x */
-	call	CharOut				/* print 0 */
-	mov		$'x', %rax
-	call	CharOut				/* print x */
-	mov		value2, %rax		/* rax = 0xffffffffffffffff */
+	mov	$'0', %rax		/* ASCII prepend 0x */
+	call	CharOut			/* print 0 */
+	mov	$'x', %rax
+	call	CharOut			/* print x */
+	mov	value2, %rax		/* rax = 0xffffffffffffffff */
 	call	PrintHexWord		/* rax maintains value2 */
-	call	CROut				/* Extra carriage return */
+	call	CROut			/* Extra carriage return */
 	call	PrintWordB10		/* rax stil contain value2 */
-	call	CROut				/* Extra carriage return */
+	call	CROut			/* Extra carriage return */
+
 	/* Exit Program */
 
 exit_program:
-	mov		$60, %rax			/* syscall 60 - exit */
-	xor		%rdi, %rdi			/* exit code - 0 */
-	syscall						/* system call to exit */
+	mov	$60, %rax		/* syscall 60 - exit */
+	xor	%rdi, %rdi		/* exit code - 0 */
+	syscall				/* system call to exit */
 
 # ----------------------------------------
 .section .data

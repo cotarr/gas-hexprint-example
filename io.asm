@@ -35,19 +35,19 @@ CharOut:
 
 /* Write to StdOut stream */
 
-	mov		$sys_write, %rax	/* 64 bit syscall code */
-	mov		$stdout, %rdi		/* File descriptor StdOut */
-	lea		CharOutbuf, %rsi	/* Address of buffer with one output character */
-	mov		$1, %rdx			/* Length = 1 for one character */
+	mov	$sys_write, %rax	/* 64 bit syscall code */
+	mov	$stdout, %rdi		/* File descriptor StdOut */
+	lea	CharOutbuf, %rsi	/* Address of buffer with one output character */
+	mov	$1, %rdx		/* Length = 1 for one character */
 	syscall
 
 .exit:
-	pop		%r11
-	pop		%rcx
-	pop		%rdx
-	pop		%rsi
-	pop		%rdi
-	pop		%rax
+	pop	%r11
+	pop	%rcx
+	pop	%rdx
+	pop	%rsi
+	pop	%rdi
+	pop	%rax
 	ret
 
 
@@ -58,11 +58,11 @@ CharOut:
 #--------------------------------------------------------------
 CROut:
 	push    %rax
-	movb    $0x0d,%al 			/* Print Return \r */
+	movb    $0x0d,%al	/* Print Return \r */
 	call    CharOut
- 	movb	$0x0A, %al			/* Print Line Feed \n */
+ 	movb	$0x0A, %al	/* Print Line Feed \n */
 	call	CharOut
-	pop		%rax
+	pop	%rax
 	ret
 
 #--------------------------------------------------------------
@@ -74,25 +74,27 @@ CROut:
 StrOut:
 	push	%rax
 	push	%rbx
-	mov		%rax, %rbx			/* get address */
+	mov	%rax, %rbx	/* get address */
 StrOut1:
-	xor		%rax, %rax
-	movb	(%rbx), %al			/* read character from memory */
-	or		%al, %al			/* is this last byte? */
-	jz		StrOut2				/* yes, end of string, exit loop */
-	call	CharOut				/* output character */
-	inc		%rbx
-	jmp	StrOut1					/* loop for next character */
+	xor	%rax, %rax
+	movb	(%rbx), %al	/* read character from memory */
+	or	%al, %al	/* is this last byte? */
+	jz	StrOut2		/* yes, end of string, exit loop */
+	call	CharOut		/* output character */
+	inc	%rbx
+	jmp	StrOut1		/* loop for next character */
 StrOut2:
-	call	CROut				/* Print end of line \r\n */
-	pop		%rbx
-	pop		%rax
+	call	CROut		/* Print end of line \r\n */
+	pop	%rbx
+	pop	%rax
 	ret
 
 # ----------------------------------------------------------------
 .section	.data 
 # ----------------------------------------------------------------
 
-CharOutbuf:	.byte  	0			/* Used by CharOut to hold output character for syscall */
-			.byte	0,0,0,0		/* not used */
+CharOutbuf:
+	.byte  	0		/* Used by CharOut to hold output character for syscall */
+
+	.byte	0,0,0,0		/* not used */
 
