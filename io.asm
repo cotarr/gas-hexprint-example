@@ -66,7 +66,7 @@ CROut:
 	ret
 
 #--------------------------------------------------------------
-#  String Out - Print null terminated string
+#  String Out - Print null terminated string to stdout
 #  Input:   rax	address of nul terminated string
 #  Output:  none
 #--------------------------------------------------------------

@@ -50,6 +50,8 @@ _start:
 	call	PrintWordB10
 	call	CROut			/* Extra carriage return */
 
+	/* Print 64 bit unsigned integer as both hexadecimal and decimal */
+
 	lea	word_b10_message2, %rax
 	call	StrOut
 	mov	$'0', %rax		/* ASCII prepend 0x */

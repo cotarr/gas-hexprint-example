@@ -1,4 +1,4 @@
-# util.asm - Output Subroutines
+# util.asm - Integer Print Subroutines (Hexadecimal and Decimal)
 #
 # PrintHexByte - Print AL in hexadecimal
 # PrintHexWord - Print 64 bit (8 byte) word in hexadecimal
@@ -10,7 +10,7 @@
 .section	.text
 
 #--------------------------------------------------------------
-#  Print HEX value of byte
+#  Print HEX value of 8 bit byte
 #  Input:   AL byte to print
 #  Output:  none
 #--------------------------------------------------------------
@@ -88,7 +88,7 @@ PrintHexWord5:
 	ret
 
 #------------------------------------------------------------------------------------
-#  Function  PrintWordB10rax
+#  Convert 64 bit unsigned integer to base 10 and print the digits.
 #  Input:   RAX  positive unsigned integer
 #  Output:  text send to CharOut
 #  All 64 bits may be printed from 0 to 18446744073709551615 (1.844E+19)

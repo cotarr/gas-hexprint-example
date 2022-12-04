@@ -4,14 +4,22 @@ Example program to print hexadecimal values using x86-64 GAS assembler
 
 # Description
 
-A friend was trying the GNU Assembler (gas).
+A friend was trying the GNU Assembler (GAS).
 Our discussion inspired me to try the GAS assembler at the same time.
-I have previously used NASM assembler, but not the gas assembler so 
-this was my first time with gas and x86-64. I found gas syntax is quite different from NASM.
+I have previously used NASM assembler, but not the GAS assembler so 
+this was my first time using GAS with x86-64. 
+I found GAS assembler using AT&T syntax is quite different from NASM using Intel syntax.
 
 In this example, some 64 bit registers are printed in hexadecimal and 
 base 10 decimal using pure assembly language. No external libraries were used.
 This was a learning exercise so there could be beginner errors.
+
+# Source files
+
+- example.asm - Main program, execute each part in order.
+- io.asm - Use system call to print characters to stdout
+- util.asm - Conversions to print hexadecimal and decimal format.
+- Makefile - To compile the executable binary `example`
 
 # To clone the repo
 
@@ -21,14 +29,14 @@ If you are missing the gas assembler, linker or make, you can probably
 install those using `apt-get install build-essential`.
 I recommend setup Debian or Ubuntu in a isolated VM.
 
-- 1) Clone the repository and change the working directory to the repository folder.
+- 1 Clone the repository and change the working directory to the repository folder.
 
 ```
 git clone https://github.com/cotarr/gas-hexprint-example.git
 cd gas-hexprint-example
 ```
 
-- 2) Compile the program by typing `make`. Check the output for errors. Assembler listing files will also be created.
+- 2 Compile the program by typing `make`. Check the output for errors. Assembler listing files will also be created.
 
 ```
 $ make
@@ -39,7 +47,7 @@ ld -melf_x86_64 -o example example.o io.o util.o
 $
 ```
 
-- 3) Run the example by typing `./example`. The following output should print to stdout.
+- 3 Run the example by typing `./example`. The following output should print to stdout.
 
 ```
 $ ./example
