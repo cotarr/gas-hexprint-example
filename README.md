@@ -1,24 +1,23 @@
 # gas-hexprint-example
 
-Example program to print hexadecimal values x86-64 GAS assembler
+Example program to print hexadecimal values using x86-64 GAS assembler
 
 # Description
 
 A friend was trying the GNU Assembler (gas).
 Our discussion inspired me to try the GAS assembler at the same time.
-I have previously used NASM assembler, but the gas assembler.
-This was my first time with gas and x86-64. I found gas syntax is quite different from NASM.
+I have previously used NASM assembler, but not the gas assembler so 
+this was my first time with gas and x86-64. I found gas syntax is quite different from NASM.
 
 In this example, some 64 bit registers are printed in hexadecimal and 
-base 10 decimal using pure assembly language.
-
-No external libraries were used. This was a learning exercise so there could be beginner errors.
+base 10 decimal using pure assembly language. No external libraries were used.
+This was a learning exercise so there could be beginner errors.
 
 # To clone the repo
 
 This was written in Debian 11 running in a 64 bit virtual machine
 that was on a laptop with an i7 processor.
-If you are missing the assembler or make, you can probably
+If you are missing the gas assembler, linker or make, you can probably
 install those using `apt-get install build-essential`.
 I recommend setup Debian or Ubuntu in a isolated VM.
 
@@ -29,7 +28,7 @@ git clone https://github.com/cotarr/gas-hexprint-example.git
 cd gas-hexprint-example
 ```
 
-- 2) Compile the program by typing `make`. Check the output for errors
+- 2) Compile the program by typing `make`. Check the output for errors. Assembler listing files will also be created.
 
 ```
 $ make
