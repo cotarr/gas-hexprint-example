@@ -104,7 +104,9 @@ PrintWordB10:
 	push	%rbp		/* For DIV command */
 	mov	%rax, %rdi	/* Original Number */
 
-	/* Part 1 of 2, count base 10 digits by dividing by 10 with a counter */
+	/* Part 1 of 2, First divide by powers of 10 in inreasing order,
+	such as 1, 10, 100, 1000, 10000. Count the number base 10 digits
+	by dividing by 10 with a counter until the quotient is zero. */
 
 	/* an unsigned 64 bit integer can be up to 20 digits in base 10 */
 	mov	$20, %rcx	/* Loop counter */
@@ -131,7 +133,11 @@ PrintWordB101:
 
 PrintWordB102:
 
-  	/* Part 2 of 2 - divide by power of 10 in a loop, forming ASCII digits at each loop */
+  	/* Part 2 of 2 - Using the digit count, and the highest power of 10,
+	next divide by decreasing powers of 10 in a loop, such as 10000, 1000, 100, 10, 1.
+	Keep the remainder for the next loop, then print the quotient.
+	Form the ASCII digits at each loop by taking the binary value in the range of 0-9
+	and adding an integer value (bitwise AND) to get the correct ASCII code. */
 
 	mov	%rsi, %rcx	/* Counter */
 PrintWordB103:
