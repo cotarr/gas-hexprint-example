@@ -16,7 +16,7 @@ This was a learning exercise so there could be beginner errors.
 
 # Source files
 
-- example.asm - Main program, execute each part in order.
+- example.asm - Main program, this will execute each example in order.
 - io.asm - Use system call to print characters to stdout
 - util.asm - Conversions to print hexadecimal and decimal format.
 - Makefile - To compile the executable binary `example`
