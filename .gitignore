@@ -1,4 +1,5 @@
 *.bak
 *.lst
 *.o
+*.map
 example
